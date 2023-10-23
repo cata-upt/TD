@@ -70,12 +70,14 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
         }
 
         case 6: 
+        {
             if (current_character == 0x0D) { 
                 state = 1; 
             } else {
                 state = 0;
             }
             return STATE_MACHINE_READY_OK;
+        }
 
         case 7:
         {
@@ -138,12 +140,14 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
         }
 
         case 13: 
+        {
             if (current_character == 0x0D) { 
                 state = 1; 
             } else {
                 state = 0;
             }
             return STATE_MACHINE_READY_OK;
+        }
 
         case 14:
         {
@@ -169,9 +173,9 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 16:
         {
-            if(current_character == 0x0A){
+            if(current_character == 0x0A) {
                 state = 17;
-            }else{
+            } else {
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -179,11 +183,11 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 17:
         {
-            if(current_character == '+'){
+            if(current_character == '+') {
                 state = 14;
-            }else if(current_character == 0x0D){
+            } else if(current_character == 0x0D) {
                 state = 18;
-            }else{
+            } else {
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -191,9 +195,9 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 18:
         {
-          if(current_character == 0x0A){
+          if(current_character == 0x0A) {
                 state = 19;
-            }else{
+            } else {
                 return STATE_MACHINE_READY_WITH_ERROR;
             }  
             break;  
@@ -201,11 +205,11 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 19:
         {
-           if(current_character == 'E'){
+           if(current_character == 'E') {
                 state = 7;
-            }else if(current_character == 'O'){
+            } else if(current_character == 'O') {
                 state = 3;
-            }else{
+            } else {
                 return STATE_MACHINE_READY_WITH_ERROR;
             } 
             break;  
@@ -213,10 +217,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         default:
         {
-            printf("def");
             return STATE_MACHINE_READY_WITH_ERROR;
         }
-    } 
-    printf("?????");
+    }
     return STATE_MACHINE_NOT_READY; 
 } 
