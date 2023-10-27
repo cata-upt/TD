@@ -1,7 +1,7 @@
 #include <stdint.h>
 #ifndef __PARSER_AT__
 #define __PARSER_AT__
-#define AT_COMMAND_MAX_LINES 1000 
+#define AT_COMMAND_MAX_LINES 100
 #define AT_COMMAND_MAX_LINE_SIZE 128 
 typedef struct  { 
     uint8_t ok; 
