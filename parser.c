@@ -1,14 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "parser.h"
+
+AT_COMMAND_DATA command_data;
+
 STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character) 
 { 
-    static uint32_t state = 0; 
-    printf("\n---STATE: %d w character %c\n", state, current_character);
+    static uint32_t state = 0;
+    static uint32_t line_character_count = 0;
+
+    // printf("\n---STATE: %d w character %c\n", state, current_character);
     switch (state) { 
         case 0: 
         { 
+            // initialize command_data struct fields
+            command_data.ok = 0;
+            memset(command_data.data, 0, sizeof(command_data.data));
+            command_data.line_count = 0;
+
             if (current_character == 0x0D) { 
                 state = 1;
             } 
@@ -32,6 +43,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             } else if (current_character == 'E'){ 
                 state = 7;
             } else if (current_character == '+'){ 
+
                 state = 14;
             } else {
                 return STATE_MACHINE_READY_WITH_ERROR; 
@@ -71,6 +83,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 6: 
         {
+            command_data.ok = 1;
+
             if (current_character == 0x0D) { 
                 state = 1; 
             } else {
@@ -141,6 +155,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 13: 
         {
+            command_data.ok = 0;
+
             if (current_character == 0x0D) { 
                 state = 1; 
             } else {
@@ -152,6 +168,9 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
         case 14:
         {
             if(current_character >= 32 && current_character <= 126) {
+                if(line_character_count < AT_COMMAND_MAX_LINE_SIZE && command_data.line_count < AT_COMMAND_MAX_LINES) {
+                    command_data.data[command_data.line_count][line_character_count++] = current_character;
+                }
                 state = 15;
             } else {
                 return STATE_MACHINE_READY_WITH_ERROR;
@@ -161,7 +180,12 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 15:
         {
+
             if(current_character >= 32 && current_character <= 126) {
+                if(line_character_count < AT_COMMAND_MAX_LINE_SIZE && command_data.line_count < AT_COMMAND_MAX_LINES) {
+                    command_data.data[command_data.line_count][line_character_count++] = current_character;
+                }
+                
                 state = 15;
             } else if (current_character == 0x0D) {
                 state = 16;
@@ -183,6 +207,12 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 17:
         {
+            command_data.data[command_data.line_count][line_character_count] = '\0';
+            if(command_data.line_count < AT_COMMAND_MAX_LINES) {
+                command_data.line_count ++;
+                line_character_count = 0;
+            }
+
             if(current_character == '+') {
                 state = 14;
             } else if(current_character == 0x0D) {
