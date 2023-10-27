@@ -20,7 +20,7 @@ int main (int argc, char *argv[]) {
                         printf("%c", command_data.data[i][j]);
                     }
                     if(i != command_data.line_count -1 ){
-                        printf("\n"); // Move to the next row
+                        printf("\n");
                     } else {
                         printf(",\n");
                     }
