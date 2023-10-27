@@ -30,7 +30,8 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
         { 
             if (current_character == 0x0A) { 
                 state = 2;
-            } else { 
+            } else {
+                printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c", state, current_character, 0x0A);
                 return STATE_MACHINE_READY_WITH_ERROR; 
             } 
             break; 
@@ -43,9 +44,9 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             } else if (current_character == 'E'){ 
                 state = 7;
             } else if (current_character == '+'){ 
-
                 state = 14;
             } else {
+                printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected characters: %c / %c / %c\n", state, current_character, 'O', 'E', '+');
                 return STATE_MACHINE_READY_WITH_ERROR; 
             } 
             break;
@@ -56,6 +57,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 'K') {
                 state = 4;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 'K');
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;            
@@ -66,6 +68,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 0x0D) {
                 state = 5;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0D);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -76,6 +79,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 0x0A) {
                 state = 6;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0A);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -98,6 +102,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 'R') {
                 state = 8;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character,'R');
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -108,6 +113,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 'R') {
                 state = 9;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 'R');
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -118,6 +124,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 'O') {
                 state = 10;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 'O');
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -128,6 +135,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 'R') {
                 state = 11;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 'R');
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -138,6 +146,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 0x0D) {
                 state = 12;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0D);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -148,6 +157,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 0x0A) {
                 state = 13;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0A);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -173,6 +183,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
                 }
                 state = 15;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected characters: %c - %c\n", state, current_character, 32, 126);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -190,6 +201,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             } else if (current_character == 0x0D) {
                 state = 16;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0D);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -200,6 +212,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             if(current_character == 0x0A) {
                 state = 17;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0A);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -218,6 +231,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             } else if(current_character == 0x0D) {
                 state = 18;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected characters: %c / %c\n", state, current_character, '+', 0x0D);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }
             break;  
@@ -228,6 +242,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
           if(current_character == 0x0A) {
                 state = 19;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected character: %c\n", state, current_character, 0x0A);
                 return STATE_MACHINE_READY_WITH_ERROR;
             }  
             break;  
@@ -240,6 +255,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
             } else if(current_character == 'O') {
                 state = 3;
             } else {
+                 printf("STATE MACHINE SYNTAX ERROR INFO:\nstate: %d,\ncurrent_character: %c, expected characters: %c / %c\n", state, current_character, 'O', 'E');
                 return STATE_MACHINE_READY_WITH_ERROR;
             } 
             break;  
@@ -247,6 +263,7 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         default:
         {
+             printf("STATE MACHINE SYNTAX ERROR INFO:\nInvalid state; Valid states: 0 - 19; Current state: %d\n", state);
             return STATE_MACHINE_READY_WITH_ERROR;
         }
     }

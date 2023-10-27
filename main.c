@@ -14,7 +14,6 @@ int main (int argc, char *argv[]) {
 
             ret_val = at_command_parse(ch);
             if(ret_val == STATE_MACHINE_READY_OK) {
-                printf("OK\n");
                 printf("STRUCT FIELDS: {\nok = %d,\ndata =\n", command_data.ok);
                 for (int i = 0; i < command_data.line_count; i++) {
                     for (int j = 0; command_data.data[i][j] != '\0'; j++) {
@@ -26,9 +25,8 @@ int main (int argc, char *argv[]) {
                         printf(",\n");
                     }
                 }
-                printf("line_count = %d\n}", command_data.line_count);
+                printf("line_count = %d\n}\n", command_data.line_count);
             } else if (ret_val == STATE_MACHINE_READY_WITH_ERROR) {
-                printf("ERROR\n");
                 break;
             }
         }
