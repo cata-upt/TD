@@ -28,6 +28,9 @@ STATE_MACHINE_RETURN_VALUE at_command_parse(uint8_t current_character)
 
         case 1: 
         { 
+            command_data.ok = 0;
+            memset(command_data.data, 0, sizeof(command_data.data));
+            command_data.line_count = 0;
             if (current_character == 0x0A) { 
                 state = 2;
             } else {
